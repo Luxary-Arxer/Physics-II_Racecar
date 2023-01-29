@@ -26,6 +26,10 @@ public:
 	
 	vec3 X, Y, Z, Position, Reference;
 
+	float camera_x;
+	float camera_y; 
+	float camera_z;
+
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;

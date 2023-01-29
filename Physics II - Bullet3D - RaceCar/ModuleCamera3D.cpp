@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3D.h"
+#include "ModulePlayer.h"
+#include "PhysVehicle3d.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -46,55 +48,69 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	//Posicion de la cámara
+	Position.x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() - 15 * App->player->vehicle->vehicle->getForwardVector().getX();
+	Position.y = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getY() + 4 * App->player->vehicle->vehicle->getUpAxis(); //GetUpAxis para que la camara esste estable
+	Position.z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() - 15 * App->player->vehicle->vehicle->getForwardVector().getZ();
+	//Direcion de la cámara
+	camera_x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() + 10 * App->player->vehicle->vehicle->getForwardVector().getX();
+	camera_y = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getY() + 5 * App->player->vehicle->vehicle->getUpAxis();//GetUpAxis para que la camara esste estable
+	camera_z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() + 10 * App->player->vehicle->vehicle->getForwardVector().getZ();
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+	LookAt(vec3(camera_x, camera_y, camera_z));
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+	//if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+	//if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 
-	Position += newPos;
-	Reference += newPos;
+	//if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+	//if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
-	// Mouse motion ----------------
 
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+	//if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+	//if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-		float Sensitivity = 0.25f;
+	//Position += newPos;
+	//Reference += newPos;
 
-		Position -= Reference;
+	//// Mouse motion ----------------
 
-		if(dx != 0)
-		{
-			float DeltaX = (float)dx * Sensitivity;
+	//if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	//{
+	//	int dx = -App->input->GetMouseXMotion();
+	//	int dy = -App->input->GetMouseYMotion();
 
-			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		}
+	//	float Sensitivity = 0.25f;
 
-		if(dy != 0)
-		{
-			float DeltaY = (float)dy * Sensitivity;
+	//	Position -= Reference;
 
-			Y = rotate(Y, DeltaY, X);
-			Z = rotate(Z, DeltaY, X);
+	//	if(dx != 0)
+	//	{
+	//		float DeltaX = (float)dx * Sensitivity;
 
-			if(Y.y < 0.0f)
-			{
-				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = cross(Z, X);
-			}
-		}
+	//		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+	//		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+	//		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+	//	}
 
-		Position = Reference + Z * length(Position);
-	}
+	//	if(dy != 0)
+	//	{
+	//		float DeltaY = (float)dy * Sensitivity;
+
+	//		Y = rotate(Y, DeltaY, X);
+	//		Z = rotate(Z, DeltaY, X);
+
+	//		if(Y.y < 0.0f)
+	//		{
+	//			Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+	//			Y = cross(Z, X);
+	//		}
+	//	}
+
+	//	Position = Reference + Z * length(Position);
+	//}
+
+
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();

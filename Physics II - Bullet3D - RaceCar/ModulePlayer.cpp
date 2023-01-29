@@ -24,8 +24,8 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
-	car.chassis_offset.Set(0, 1.5, 0);
+	car.chassis_size.Set(2.5, 1.5, 4);
+	car.chassis_offset.Set(0, 1, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
@@ -76,7 +76,7 @@ bool ModulePlayer::Start()
 	car.wheels[1].steering = true;
 
 	// REAR-LEFT ------------------------
-	car.wheels[2].connection.Set(half_width - 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
+	car.wheels[2].connection.Set(half_width + 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
 	car.wheels[2].direction = direction;
 	car.wheels[2].axis = axis;
 	car.wheels[2].suspensionRestLength = suspensionRestLength;
@@ -88,7 +88,7 @@ bool ModulePlayer::Start()
 	car.wheels[2].steering = false;
 
 	// REAR-RIGHT ------------------------
-	car.wheels[3].connection.Set(-half_width + 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
+	car.wheels[3].connection.Set(-half_width - 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
 	car.wheels[3].direction = direction;
 	car.wheels[3].axis = axis;
 	car.wheels[3].suspensionRestLength = suspensionRestLength;
@@ -150,12 +150,14 @@ update_status ModulePlayer::Update(float dt)
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
 
-	//Camera Movement
-	vec3 posicion = vec3(vehicle->vehicle->getRigidBody()->getCenterOfMassTransform().getOrigin().getX(), 
-						 vehicle->vehicle->getRigidBody()->getCenterOfMassTransform().getOrigin().getY(),
-						 vehicle->vehicle->getRigidBody()->getCenterOfMassTransform().getOrigin().getZ());
+	//Camera Position
+	//vec3 posicion = vec3(vehicle->vehicle->getChassisWorldTransform().getOrigin().getX(),
+	//					 vehicle->vehicle->getChassisWorldTransform().getOrigin().getY(),
+	//					 vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ());
+	//App->camera->Look(vec3(posicion.x, posicion.y + 10, posicion.z + 10), posicion);
 
-	App->camera->Look(vec3(posicion.x, posicion.y + 25, posicion.z + 25), posicion);
+
+
 
 	return UPDATE_CONTINUE;
 }
