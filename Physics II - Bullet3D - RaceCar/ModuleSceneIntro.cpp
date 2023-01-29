@@ -47,3 +47,18 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 }
 
+void ModuleSceneIntro::CreateCube(float size_x, float size_y, float size_z, float pos_x, float pos_y, float pos_z, float rot_x, float rot_y, float rot_z, float angle, float r, float g, float b)
+{
+	Cube box(size_x, size_y, size_z);
+	box.SetPos(pos_x, pos_y, pos_z);
+	box.color.r = r;
+	box.color.g = g;
+	box.color.b = b;
+
+	if (angle != 0)
+	{
+		box.SetRotation(angle, vec3(rot_x, rot_y, rot_z));
+	}
+
+	cubes.Insert(box, cubes.Count());
+}
