@@ -7,7 +7,10 @@
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
-#define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
+#define GRAVITY2 btVector3(0.0f, -10.0f, 0.0f) 
+#define GRAVITY3 btVector3(0.0f, -20.0f, 0.0f) 
+#define GRAVITY1 btVector3(0.0f, -5.0f, 0.0f) 
+#define V_Gravedad int a
 
 class DebugDrawer;
 struct PhysBody3D;
@@ -70,4 +73,5 @@ public:
 	DebugDrawModes mode;
 	Line line;
 	Primitive point;
+
 };

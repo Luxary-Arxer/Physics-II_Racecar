@@ -18,6 +18,9 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
+
+	btVector4 quatToAxisAngle(btQuaternion quat);
 
 public:
 
@@ -32,4 +35,7 @@ public:
 
 	bool win = false;
 	bool death = false;
+	bool inicio = false;
+
+	p2DynArray<Cube*> lista_Plataformas;
 };

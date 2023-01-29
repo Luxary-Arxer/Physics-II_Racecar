@@ -52,7 +52,7 @@ bool ModulePhysics3D::Start()
 
 	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
 	world->setDebugDrawer(debug_draw);
-	world->setGravity(GRAVITY);
+	world->setGravity(GRAVITY2);
 	vehicle_raycaster = new btDefaultVehicleRaycaster(world);
 
 	// Big plane as ground
@@ -106,6 +106,7 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 		}
 	}
 
+
 	return UPDATE_CONTINUE;
 }
 
@@ -135,6 +136,32 @@ update_status ModulePhysics3D::Update(float dt)
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
 		}
 	}
+	//Modificar gravedad
+	V_Gravedad = 2;
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		if (a == 2) {
+			world->setGravity(GRAVITY3);
+			V_Gravedad = 3;
+		}
+		if (a == 1) {
+			world->setGravity(GRAVITY2);
+			V_Gravedad = 2;
+		}
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
+	{
+		if (a == 2) {
+			world->setGravity(GRAVITY1);
+			V_Gravedad = 1;
+		}
+		if (a == 3) {
+			world->setGravity(GRAVITY2);
+			V_Gravedad = 2;
+		}
+	}
+
 
 	return UPDATE_CONTINUE;
 }
@@ -327,6 +354,11 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	// ---------------------
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
+
+	pvehicle->SetId(0);
+
+	body->setUserPointer(pvehicle);
+
 	world->addVehicle(vehicle);
 	vehicles.add(pvehicle);
 

@@ -31,6 +31,7 @@ public:
 	bool coli_player = false;
 	bool coli_death = false;
 	bool coli_win = false;
+	bool coli_platform = false;
 	bool coli_sensor;
 };
 

@@ -132,9 +132,13 @@ bool ModulePlayer::Start()
 	car.wheels[3].drive = false;
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
+
+
 	vehicle_car = App->physics->AddVehicle(car);
+	vehicle_car->coli_player = true;
 	vehicle_car->SetPos(posicion_Spawn[0], posicion_Spawn[1], posicion_Spawn[2]);
-	
+	vehicle_car->collision_listeners.add(this);
+
 	return true;
 }
 
@@ -149,6 +153,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
@@ -192,8 +197,6 @@ update_status ModulePlayer::Update(float dt)
 			vehicle_car->info.life1->active = false;
 			vidas -= 1;
 		}
-
-
 	}
 	//Resetear vidas
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
@@ -229,6 +232,22 @@ update_status ModulePlayer::Update(float dt)
 	{
 		vehicle_car->info.mass += 100.0f;
 	}
+	if (win == true) {
+		win = false;
+		btTransform tr;
+		tr.setIdentity();
+		btQuaternion quat;
+		quat.setEulerZYX(0, rotacion_Spawn, 0);
+		tr.setRotation(quat);
+		tr.setOrigin(btVector3(posicion_Spawn[0], posicion_Spawn[1], posicion_Spawn[2]));
+
+		vehicle_car->vehicle->getRigidBody()->setCenterOfMassTransform(tr);
+		turn = acceleration = brake = 0.0f;
+		vehicle_car->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle_car->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
+
+	}
+
 
 	vehicle_car->ApplyEngineForce(acceleration);
 	vehicle_car->Turn(turn);
@@ -246,11 +265,74 @@ update_status ModulePlayer::Update(float dt)
 	//					 vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ());
 	//App->camera->Look(vec3(posicion.x, posicion.y + 10, posicion.z + 10), posicion);
 
+	if (death == true) {
 
+		turn = acceleration = brake = 0.0f;
 
+		btTransform tr;
+		tr.setIdentity();
+		btQuaternion quat;
+		quat.setEulerZYX(0, rotacion_Spawn, 0);
+		tr.setRotation(quat);
+		tr.setOrigin(btVector3(posicion_Spawn[0], posicion_Spawn[1], posicion_Spawn[2]));
+
+		vehicle_car->vehicle->getRigidBody()->setCenterOfMassTransform(tr);
+		turn = acceleration = brake = 0.0f;
+		vehicle_car->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle_car->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
+
+		death = false;
+	}
 
 	return UPDATE_CONTINUE;
 }
 
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
+
+	if (body1->coli_player == true && body2->coli_win == true) {
+
+		win = true;
+
+		btTransform tr;
+		tr.setIdentity();
+		btQuaternion quat;
+		quat.setEulerZYX(0, rotacion_Spawn, 0);
+		tr.setRotation(quat);
+		tr.setOrigin(btVector3(posicion_Spawn[0], posicion_Spawn[1], posicion_Spawn[2]));
+
+		vehicle_car->vehicle->getRigidBody()->setCenterOfMassTransform(tr);
+		turn = acceleration = brake = 0.0f;
+		vehicle_car->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle_car->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
+
+	}
+
+	if (body1->coli_player == true && body2->coli_death == true){
+
+		if (vidas >= 1)
+		{
+			if (vidas == 1) {
+				vehicle_car->info.life3->active = false;
+				vidas -= 1;
+			}
+			if (vidas == 2) {
+				vehicle_car->info.life2->active = false;
+				vidas -= 1;
+			}
+			if (vidas == 3) {
+				vehicle_car->info.life1->active = false;
+				vidas -= 1;
+			}
+
+		}
+		else {
+			vehicle_car->info.life1->active = true;
+			vehicle_car->info.life2->active = true;
+			vehicle_car->info.life3->active = true;
+			vidas = 3;
+		}
+		death = true;
+	}
+}
 
 

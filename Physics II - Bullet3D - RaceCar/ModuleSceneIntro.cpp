@@ -22,6 +22,13 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	//Death field
+	CreateCube(1000.0, 3.0, 1000.0, 0, 0, 0, 0, 0, 0, 0, 3.0, 0, 0, 0.5);
+	//Plataformas
+	CreateCube(20, 3, 200, 0, 10 + 1.5, 40, 0, 0, 0, 0, 1.3, 1.3, 1.3, 1);
+	//Victoria
+	CreateCube(5,5,5, 0, 10 + 1.5 +2,150, 0, 0, 0, 0, 0, 0, 1, 1);
+
 	return ret;
 }
 
@@ -36,19 +43,26 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
 
-	//Death field
-	CreateCube(1000.0, 3.0, 1000.0, 0, 0, 0, 0, 0, 0, 0, 3.0,0,0,0.5);
-	//Plataformas
-	CreateCube(20, 3, 200, 0, 10+1.5, 40, 0, 0, 0, 0, 1.3, 1.3, 1.3, 1);
 	if(!mapa_Generado)
 	{
 		for (size_t i = 0; i < cubes.Count(); i++)
 		{
-			App->physics->AddBody(*cubes.At(i), 0);
+			if (i == 0) {
+				PhysBody3D* BoxCubo = App->physics->AddBody(*cubes.At(i), 0);
+				BoxCubo->coli_death = true;
+				cubes.At(i)->physObject = BoxCubo;
+			}
+			if (i == 1) {
+				PhysBody3D* BoxCubo = App->physics->AddBody(*cubes.At(i), 0);
+				BoxCubo->coli_platform = true;
+				cubes.At(i)->physObject = BoxCubo;
+			}
+			if (i == 2) {
+				PhysBody3D* BoxCubo = App->physics->AddBody(*cubes.At(i), 0);
+				BoxCubo->coli_win = true;
+				cubes.At(i)->physObject = BoxCubo;
+			}
 		}
 
 		mapa_Generado = true;

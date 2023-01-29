@@ -2,6 +2,9 @@
 #pragma once
 #include "glmath.h"
 #include "Color.h"
+#include "PhysBody3D.h"
+
+class PhysBody3D;
 
 enum PrimitiveTypes
 {
@@ -45,6 +48,8 @@ public :
 	void InnerRender() const;
 public:
 	vec3 size;
+	float rotY = 0;
+	PhysBody3D* physObject;
 };
 
 // ============================================
