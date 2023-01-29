@@ -21,9 +21,10 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
-	void CreateCube(float long_x, float long_y, float long_z, float pos_x, float pos_y, float pos_z, float rot_x, float rot_y, float rot_z, float angle, float r, float g, float b);
+	void CreateCube(float size_x, float size_y, float size_z, float pos_x, float pos_y, float pos_z, float rot_x, float rot_y, float rot_z, float angle, float r, float g, float b,float a);
 
 public:
+
 	/*
 	PhysBody3D* pb_snake[MAX_SNAKE];
 	Sphere s_snake[MAX_SNAKE];

@@ -45,3 +45,21 @@ void PhysBody3D::SetPos(float x, float y, float z)
 	t.setOrigin(btVector3(x, y, z));
 	body->setWorldTransform(t);
 }
+
+
+void PhysBody3D::SetAsSensor(bool coli_sensor)
+{
+	if (this->coli_sensor != coli_sensor)
+	{
+		this->coli_sensor = coli_sensor;
+		if (coli_sensor == true)
+			body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		else
+			body->setCollisionFlags(body->getCollisionFlags() & ~btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	}
+}
+
+void PhysBody3D::SetId(int id)
+{
+	this->id = id;
+}

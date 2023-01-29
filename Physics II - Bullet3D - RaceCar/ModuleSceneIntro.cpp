@@ -40,6 +40,23 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+	//Death field
+	CreateCube(1000.0, 3.0, 1000.0, 0, 0, 0, 0, 0, 0, 0, 3.0,0,0,0.5);
+	//Plataformas
+	CreateCube(20, 3, 200, 0, 10+1.5, 40, 0, 0, 0, 0, 1.3, 1.3, 1.3, 1);
+	if(!mapa_Generado)
+	{
+		for (size_t i = 0; i < cubes.Count(); i++)
+		{
+			App->physics->AddBody(*cubes.At(i), 0);
+		}
+
+		mapa_Generado = true;
+	}
+	for (size_t i = 0; i < cubes.Count(); i++)
+	{
+		cubes.At(i)->Render();
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -47,13 +64,15 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 }
 
-void ModuleSceneIntro::CreateCube(float size_x, float size_y, float size_z, float pos_x, float pos_y, float pos_z, float rot_x, float rot_y, float rot_z, float angle, float r, float g, float b)
+void ModuleSceneIntro::CreateCube(float size_x, float size_y, float size_z, float pos_x, float pos_y, float pos_z, float rot_x, float rot_y, float rot_z,float angle, float r, float g, float b, float a)
 {
 	Cube box(size_x, size_y, size_z);
-	box.SetPos(pos_x, pos_y, pos_z);
+	//box.color = Red;
 	box.color.r = r;
 	box.color.g = g;
 	box.color.b = b;
+	box.color.a = a;
+	box.SetPos(pos_x, pos_y, pos_z);
 
 	if (angle != 0)
 	{

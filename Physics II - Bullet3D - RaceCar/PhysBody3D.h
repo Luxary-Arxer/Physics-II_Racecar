@@ -18,12 +18,20 @@ public:
 	void GetTransform(float* matrix) const;
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
+	void SetAsSensor(bool is_sensor);
+	void SetId(int id);
 
 private:
 	btRigidBody* body = nullptr;
 
 public:
 	p2List<Module*> collision_listeners;
+
+	int id;
+	bool coli_player = false;
+	bool coli_death = false;
+	bool coli_win = false;
+	bool coli_sensor;
 };
 
 #endif // __PhysBody3D_H__

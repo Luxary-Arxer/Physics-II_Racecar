@@ -132,9 +132,8 @@ bool ModulePlayer::Start()
 	car.wheels[3].drive = false;
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
-
 	vehicle_car = App->physics->AddVehicle(car);
-	vehicle_car->SetPos(0, 12, -10);
+	vehicle_car->SetPos(posicion_Spawn[0], posicion_Spawn[1], posicion_Spawn[2]);
 	
 	return true;
 }
@@ -155,6 +154,11 @@ update_status ModulePlayer::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		acceleration = -MAX_ACCELERATION * 0.7;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -197,6 +201,24 @@ update_status ModulePlayer::Update(float dt)
 		vehicle_car->info.life2->active = true;
 		vehicle_car->info.life3->active = true;
 		vidas = 3;
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		turn = acceleration = brake = 0.0f;
+
+		btTransform tr;
+		tr.setIdentity();
+		btQuaternion quat;
+		quat.setEulerZYX(0, rotacion_Spawn, 0);
+		tr.setRotation(quat);
+		tr.setOrigin(btVector3(posicion_Spawn[0], posicion_Spawn[1], posicion_Spawn[2]));
+
+		vehicle_car->vehicle->getRigidBody()->setCenterOfMassTransform(tr);
+		turn = acceleration = brake = 0.0f;
+		vehicle_car->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle_car->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
 	}
 
 	vehicle_car->ApplyEngineForce(acceleration);

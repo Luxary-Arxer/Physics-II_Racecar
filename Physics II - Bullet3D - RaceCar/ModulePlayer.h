@@ -26,4 +26,10 @@ public:
 	float acceleration;
 	float brake;
 	int vidas = 3;
+
+	float posicion_Spawn[3] = { 0, 15, 0 };
+	btScalar rotacion_Spawn = 0;
+
+	bool win = false;
+	bool death = false;
 };
