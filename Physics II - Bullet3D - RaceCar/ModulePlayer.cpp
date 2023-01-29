@@ -41,10 +41,10 @@ bool ModulePlayer::Start()
 	float suspensionRestLength = 1.2f;
 
 	// Life properties ---------------------------------------
-	float life_connection_height = 1.2f;
-	float life_x = 0.6f;
+	float life_connection_height = 2.0f;
+	float life_x = 0.83f;
 	float life_y = 0.5f;
-	float life_z = 0.5f;
+	float life_z = 0.5;
 	float life_suspensionRestLength = 1.2f;
 
 	// Don't change anything below this line ------------------
@@ -61,6 +61,12 @@ bool ModulePlayer::Start()
 	car.num_lifes = 3;
 	car.lifes = new Lifes[3];
 
+	//Life L
+	car.lifes[0].active = false;
+	car.lifes[0].size_life.Set(10, 10, 10);
+	car.lifes[0].size_life.x = life_x;
+	car.lifes[0].size_life.y = life_y;
+	car.lifes[0].size_life.z = life_z;
 
 
 	// FRONT-LEFT ------------------------
@@ -112,7 +118,7 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 12, -10);
 	
 	return true;
 }

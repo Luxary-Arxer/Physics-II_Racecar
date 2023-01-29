@@ -23,9 +23,10 @@ struct Wheel
 struct Lifes
 {
 
+
 	bool active; // si tienes esa vida
 	vec3 size_life;
-	vec3 size_offset;
+	vec3 life_offset;
 
 };
 

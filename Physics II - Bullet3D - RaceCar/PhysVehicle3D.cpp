@@ -48,11 +48,9 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[13] += offset.getY();
 	chassis.transform.M[14] += offset.getZ();
 
-
 	chassis.Render();
 
 	//Vidas
-
 	Cube life(info.lifes->size_life.x, info.lifes->size_life.y, info.lifes->size_life.z);
 
 	for (int i = 0; i < info.num_lifes; ++i)
@@ -64,6 +62,14 @@ void PhysVehicle3D::Render()
 		else {
 			life.color = Red;
 		}
+		vehicle->getChassisWorldTransform().getOpenGLMatrix(&life.transform);
+		btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
+		btVector3 offset(info.lifes->life_offset.x, info.lifes->life_offset.y, info.lifes->life_offset.z);
+		offset = offset.rotate(q.getAxis(), q.getAngle());
+
+		chassis.transform.M[12] += offset.getX();
+		chassis.transform.M[13] += offset.getY();
+		chassis.transform.M[14] += offset.getZ();
 
 		life.size = info.lifes[0].size_life;
 
