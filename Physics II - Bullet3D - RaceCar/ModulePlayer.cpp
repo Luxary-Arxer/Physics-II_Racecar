@@ -4,6 +4,9 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "ModulePhysics3D.h"
+#include "ModuleCamera3D.h"
+
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
@@ -146,6 +149,13 @@ update_status ModulePlayer::Update(float dt)
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
+
+	//Camera Movement
+	vec3 posicion = vec3(vehicle->vehicle->getRigidBody()->getCenterOfMassTransform().getOrigin().getX(), 
+						 vehicle->vehicle->getRigidBody()->getCenterOfMassTransform().getOrigin().getY(),
+						 vehicle->vehicle->getRigidBody()->getCenterOfMassTransform().getOrigin().getZ());
+
+	App->camera->Look(vec3(posicion.x, posicion.y + 25, posicion.z + 25), posicion);
 
 	return UPDATE_CONTINUE;
 }
