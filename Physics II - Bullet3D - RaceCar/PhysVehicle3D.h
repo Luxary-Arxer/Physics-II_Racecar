@@ -20,12 +20,13 @@ struct Wheel
 	bool steering; // does this wheel turns ?
 };
 
-struct Lifes
+struct Life
 {
 	bool active; // si tienes esa vida
 	vec3 size_life;
 	vec3 life_offset;
 };
+
 
 
 struct VehicleInfo
@@ -46,7 +47,9 @@ struct VehicleInfo
 	Wheel* wheels;
 	int num_wheels;
 
-	Lifes* lifes;
+	Life* life1;
+	Life* life2;
+	Life* life3;
 	int num_lifes;
 };
 

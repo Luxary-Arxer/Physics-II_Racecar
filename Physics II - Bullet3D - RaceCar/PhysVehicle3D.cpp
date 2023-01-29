@@ -51,29 +51,58 @@ void PhysVehicle3D::Render()
 	chassis.Render();
 
 	//Vidas
-	for (int i = 0; i < info.num_lifes; ++i)
-	{
-		Cube life(info.lifes->size_life.x, info.lifes->size_life.y, info.lifes->size_life.z);
+	Cube life(info.life1->size_life.x, info.life1->size_life.y, info.life1->size_life.z);
 
-		if (info.lifes->active == true) {
-			life.color = Green;
-		}
-		else {
-			life.color = Red;
-		}
-		vehicle->getChassisWorldTransform().getOpenGLMatrix(&life.transform);
-		btQuaternion q_lifes = vehicle->getChassisWorldTransform().getRotation();
-		btVector3 offset_lifes(info.lifes->life_offset.x+(i), info.lifes->life_offset.y, info.lifes->life_offset.z);
-		offset_lifes = offset_lifes.rotate(q.getAxis(), q.getAngle());
-		life.size = info.lifes->size_life;
-		life.transform.M[12] += offset_lifes.getX();
-		life.transform.M[13] += offset_lifes.getY();
-		life.transform.M[14] += offset_lifes.getZ();
-
-		life.Render();
+	if (info.life1->active == true) {
+		life.color = Green;
 	}
+	else {
+		life.color = Red;
+	}
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&life.transform);
+	btQuaternion q_lifes = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset_lifes(info.life1->life_offset.x , info.life1->life_offset.y, info.life1->life_offset.z);
+	offset_lifes = offset_lifes.rotate(q_lifes.getAxis(), q_lifes.getAngle());
+	life.size = info.life1->size_life;
+	life.transform.M[12] += offset_lifes.getX();
+	life.transform.M[13] += offset_lifes.getY();
+	life.transform.M[14] += offset_lifes.getZ();
+	life.Render();
+	//Vidas2
+	Cube life_2(info.life2->size_life.x, info.life2->size_life.y, info.life2->size_life.z);
 
-
+	if (info.life2->active == true) {
+		life_2.color = Green;
+	}
+	else {
+		life_2.color = Red;
+	}
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&life_2.transform);
+	btQuaternion q_life_2 = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset_life_2(info.life2->life_offset.x, info.life2->life_offset.y, info.life2->life_offset.z);
+	offset_life_2 = offset_life_2.rotate(q_life_2.getAxis(), q_life_2.getAngle());
+	life_2.size = info.life2->size_life;
+	life_2.transform.M[12] += offset_life_2.getX();
+	life_2.transform.M[13] += offset_life_2.getY();
+	life_2.transform.M[14] += offset_life_2.getZ();
+	life_2.Render();
+	//Vidas3
+	Cube life_3(info.life3->size_life.x, info.life3->size_life.y, info.life3->size_life.z);
+	if (info.life3->active == true) {
+			life_3.color = Green;
+	}
+	else {
+		life_3.color = Red;
+	}
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&life_3.transform);
+	btQuaternion q_lifes_3 = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset_life_3(info.life3->life_offset.x, info.life3->life_offset.y, info.life3->life_offset.z);
+	offset_life_3 = offset_life_3.rotate(q_lifes_3.getAxis(), q_lifes_3.getAngle());
+	life_3.size = info.life3->size_life;
+	life_3.transform.M[12] += offset_life_3.getX();
+	life_3.transform.M[13] += offset_life_3.getY();
+	life_3.transform.M[14] += offset_life_3.getZ();
+	life_3.Render();
 
 }
 

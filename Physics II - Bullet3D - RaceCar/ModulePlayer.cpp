@@ -58,27 +58,31 @@ bool ModulePlayer::Start()
 	car.num_wheels = 4;
 	car.wheels = new Wheel[4];
 
-	car.num_lifes = 3;
-	car.lifes = new Lifes[3];
-
 	//Life L
-	car.lifes[0].active = true;
-	car.lifes[0].life_offset.Set(-1, 1.8, -2);
-	car.lifes[0].size_life.x = life_x;
-	car.lifes[0].size_life.y = life_y;
-	car.lifes[0].size_life.z = life_z;
+	car.num_lifes = 1;
+	car.life1 = new Life;
+	//Life L
+	car.life1[0].active = true;
+	car.life1[0].life_offset.Set(0.835, 1.8, -2);
+	car.life1[0].size_life.x = life_x;
+	car.life1[0].size_life.y = life_y;
+	car.life1[0].size_life.z = life_z;
+	//Life L
+	car.life2 = new Life;
 	//Life M
-	car.lifes[1].active = true;
-	car.lifes[1].life_offset.Set(0, 1.8, -2);
-	car.lifes[1].size_life.x = life_x;
-	car.lifes[1].size_life.y = life_y;
-	car.lifes[1].size_life.z = life_z;
+	car.life2[0].active = true;
+	car.life2[0].life_offset.Set(0, 1.8, -2);
+	car.life2[0].size_life.x = life_x;
+	car.life2[0].size_life.y = life_y;
+	car.life2[0].size_life.z = life_z;
+	//Life L
+	car.life3 = new Life;
 	//Life M
-	car.lifes[2].active = true;
-	car.lifes[2].life_offset.Set(+0.835, 1.8, -2);
-	car.lifes[2].size_life.x = life_x;
-	car.lifes[2].size_life.y = life_y;
-	car.lifes[2].size_life.z = life_z;
+	car.life3[0].active = true;
+	car.life3[0].life_offset.Set(-0.835, 1.8, -2);
+	car.life3[0].size_life.x = life_x;
+	car.life3[0].size_life.y = life_y;
+	car.life3[0].size_life.z = life_z;
 
 
 	// FRONT-LEFT ------------------------
@@ -148,31 +152,51 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
-		vehicle_car->info.lifes->active = !vehicle_car->info.lifes->active;
+		if (vidas == 1) {
+			vehicle_car->info.life3->active = false;
+			vidas -= 1;
+		}
+		if (vidas == 2) {
+			vehicle_car->info.life2->active = false;
+			vidas -= 1;
+		}
+		if (vidas == 3) {
+			vehicle_car->info.life1->active = false;
+			vidas -= 1;
+		}
+
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		vehicle_car->info.life1->active = true;
+		vehicle_car->info.life2->active = true;
+		vehicle_car->info.life3->active = true;
+		vidas = 3;
 	}
 
 	vehicle_car->ApplyEngineForce(acceleration);
