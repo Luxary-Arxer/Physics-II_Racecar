@@ -323,6 +323,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 		vehicle->addWheel(conn, dir, axis, info.wheels[i].suspensionRestLength, info.wheels[i].radius, tuning, info.wheels[i].front);
 	}
+
 	// ---------------------
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);

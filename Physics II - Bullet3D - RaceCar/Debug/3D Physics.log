@@ -1,3 +1,6 @@
 ﻿  ModulePlayer.cpp
 C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\ModulePlayer.cpp(27,34): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\ModulePlayer.cpp(66,42): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\ModulePlayer.cpp(72,41): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\ModulePlayer.cpp(78,46): warning C4305: 'argumento': truncamiento de 'double' a 'float'
   3D Physics.vcxproj -> C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\Debug\3D Physics - class5.exe

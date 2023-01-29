@@ -8,7 +8,7 @@
 #include "ModuleCamera3D.h"
 
 
-ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
+ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle_car(NULL)
 {
 	turn = acceleration = brake = 0.0f;
 }
@@ -62,11 +62,23 @@ bool ModulePlayer::Start()
 	car.lifes = new Lifes[3];
 
 	//Life L
-	car.lifes[0].active = false;
-	car.lifes[0].size_life.Set(10, 10, 10);
+	car.lifes[0].active = true;
+	car.lifes[0].life_offset.Set(-1, 1.8, -2);
 	car.lifes[0].size_life.x = life_x;
 	car.lifes[0].size_life.y = life_y;
 	car.lifes[0].size_life.z = life_z;
+	//Life M
+	car.lifes[1].active = true;
+	car.lifes[1].life_offset.Set(0, 1.8, -2);
+	car.lifes[1].size_life.x = life_x;
+	car.lifes[1].size_life.y = life_y;
+	car.lifes[1].size_life.z = life_z;
+	//Life M
+	car.lifes[2].active = true;
+	car.lifes[2].life_offset.Set(+0.835, 1.8, -2);
+	car.lifes[2].size_life.x = life_x;
+	car.lifes[2].size_life.y = life_y;
+	car.lifes[2].size_life.z = life_z;
 
 
 	// FRONT-LEFT ------------------------
@@ -117,8 +129,8 @@ bool ModulePlayer::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
-	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, -10);
+	vehicle_car = App->physics->AddVehicle(car);
+	vehicle_car->SetPos(0, 12, -10);
 	
 	return true;
 }
@@ -158,14 +170,19 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	vehicle->ApplyEngineForce(acceleration);
-	vehicle->Turn(turn);
-	vehicle->Brake(brake);
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		vehicle_car->info.lifes->active = !vehicle_car->info.lifes->active;
+	}
 
-	vehicle->Render();
+	vehicle_car->ApplyEngineForce(acceleration);
+	vehicle_car->Turn(turn);
+	vehicle_car->Brake(brake);
+
+	vehicle_car->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h", vehicle_car->GetKmh());
 	App->window->SetTitle(title);
 
 	//Camera Position

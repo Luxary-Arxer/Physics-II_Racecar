@@ -49,13 +49,13 @@ update_status ModuleCamera3D::Update(float dt)
 		speed = 8.0f * dt;
 
 	//Posicion de la cámara
-	Position.x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() - 15 * App->player->vehicle->vehicle->getForwardVector().getX();
-	Position.y = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getY() + 4 * App->player->vehicle->vehicle->getUpAxis(); //GetUpAxis para que la camara esste estable
-	Position.z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() - 15 * App->player->vehicle->vehicle->getForwardVector().getZ();
+	Position.x = App->player->vehicle_car->vehicle->getChassisWorldTransform().getOrigin().getX() - 15 * App->player->vehicle_car->vehicle->getForwardVector().getX();
+	Position.y = App->player->vehicle_car->vehicle->getChassisWorldTransform().getOrigin().getY() + 4 * App->player->vehicle_car->vehicle->getUpAxis(); //GetUpAxis para que la camara esste estable
+	Position.z = App->player->vehicle_car->vehicle->getChassisWorldTransform().getOrigin().getZ() - 15 * App->player->vehicle_car->vehicle->getForwardVector().getZ();
 	//Direcion de la cámara
-	camera_x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() + 10 * App->player->vehicle->vehicle->getForwardVector().getX();
-	camera_y = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getY() + 5 * App->player->vehicle->vehicle->getUpAxis();//GetUpAxis para que la camara esste estable
-	camera_z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() + 10 * App->player->vehicle->vehicle->getForwardVector().getZ();
+	camera_x = App->player->vehicle_car->vehicle->getChassisWorldTransform().getOrigin().getX() + 10 * App->player->vehicle_car->vehicle->getForwardVector().getX();
+	camera_y = App->player->vehicle_car->vehicle->getChassisWorldTransform().getOrigin().getY() + 5 * App->player->vehicle_car->vehicle->getUpAxis();//GetUpAxis para que la camara esste estable
+	camera_z = App->player->vehicle_car->vehicle->getChassisWorldTransform().getOrigin().getZ() + 10 * App->player->vehicle_car->vehicle->getForwardVector().getZ();
 
 	LookAt(vec3(camera_x, camera_y, camera_z));
 
