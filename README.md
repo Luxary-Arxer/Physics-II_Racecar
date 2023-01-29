@@ -39,3 +39,6 @@ El objetivo es llegar al final del nivel
  - {Miguel Rodrigez}- {https://github.com/Bankaster}
  - {Sergio Corona}- {https://github.com/seregero00}
  - {Yunqian Ao}- {https://github.com/YunqianAo}
+
+### Errores
+El la caja del constrin solo se ve si se ejecuta el juego en debug y no se poque, ademas no se mueve con el color
