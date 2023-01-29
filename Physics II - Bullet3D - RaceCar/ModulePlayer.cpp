@@ -156,6 +156,10 @@ update_status ModulePlayer::Update(float dt)
 
 	turn = acceleration = brake = 0.0f;
 
+	Velocidad_x = vehicle_car->GetKmh() * 3600 / 1000;
+	Superficie = (vehicle_car->info.chassis_size.x * 0.5)*(vehicle_car->info.chassis_size.y * 0.5);
+	Fuerza_dx = Velocidad_x * Velocidad_x * Superficie * aero_drag;
+
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
@@ -205,6 +209,24 @@ update_status ModulePlayer::Update(float dt)
 		vehicle_car->info.life2->active = true;
 		vehicle_car->info.life3->active = true;
 		vidas = 3;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		if (aero_drag != 0) {
+			aero_d_s = aero_drag;
+			aero_drag = 0;
+		}
+		if (aero_drag == 0) {
+			aero_drag = aero_d_s;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+	{
+		aero_drag = +100;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		aero_drag = -100;
 	}
 	//Resetea posicion
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)

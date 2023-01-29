@@ -10,6 +10,7 @@
 #define GRAVITY2 btVector3(0.0f, -10.0f, 0.0f) 
 #define GRAVITY3 btVector3(0.0f, -20.0f, 0.0f) 
 #define GRAVITY1 btVector3(0.0f, -5.0f, 0.0f) 
+#define GRAVITY0 btVector3(0.0f, -5.0f, 0.0f) 
 #define V_Gravedad int a
 
 class DebugDrawer;
@@ -40,6 +41,8 @@ public:
 
 private:
 
+	bool active = true;
+
 	bool debug;
 
 	btDefaultCollisionConfiguration*	collision_conf;
@@ -60,6 +63,7 @@ private:
 class DebugDrawer : public btIDebugDraw
 {
 public:
+
 	DebugDrawer() : line(0,0,0)
 	{}
 

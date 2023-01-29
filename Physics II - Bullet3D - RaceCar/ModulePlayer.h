@@ -38,4 +38,12 @@ public:
 	bool inicio = false;
 
 	p2DynArray<Cube*> lista_Plataformas;
+
+
+	float Superficie;
+	float Velocidad_x;
+	float Fuerza_dx;
+	float Fuerza_dy;
+	bool aero_d_s = 0;
+	float aero_drag = 0.5f;
 };

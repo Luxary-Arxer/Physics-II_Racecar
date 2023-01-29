@@ -28,6 +28,10 @@ bool ModuleSceneIntro::Start()
 	CreateCube(20, 3, 200, 0, 10 + 1.5, 40, 0, 0, 0, 0, 1.3, 1.3, 1.3, 1);
 	//Victoria
 	CreateCube(5,5,5, 0, 10 + 1.5 +2,150, 0, 0, 0, 0, 0, 0, 1, 1);
+	//Rampa
+	CreateCube(20, 20, 0.5, 0, 60, 40, 0, 0, 0, 0, 0, 0.1, 0.1, 0);
+	CreateCube(0.5, 20, 0.5, 0, 60, 40, 0, 0, 0, 0, 0, 0.1, 0.1, 0);
+
 
 	return ret;
 }
@@ -63,6 +67,17 @@ update_status ModuleSceneIntro::Update(float dt)
 				BoxCubo->coli_win = true;
 				cubes.At(i)->physObject = BoxCubo;
 			}
+			if (i == 3) {
+				PhysBody3D* cuboCreado = App->physics->AddBody(*cubes.At(i), 5);
+				cubes.At(i)->physObject = cuboCreado;
+
+			}
+			else {
+				PhysBody3D* cuboCreado = App->physics->AddBody(*cubes.At(i), 0);
+				cubes.At(i)->physObject = cuboCreado;
+			}
+			//constraint
+			//App->physics->AddConstraintHinge(*cubes.At(4)->physObject, *cubes.At(5)->physObject, vec3(10, 0, 0), vec3(0, 0, 0), vec3(0, 1, 0), vec3(0, 1, 0), false);
 		}
 
 		mapa_Generado = true;

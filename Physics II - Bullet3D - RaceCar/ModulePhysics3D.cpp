@@ -138,7 +138,7 @@ update_status ModulePhysics3D::Update(float dt)
 	}
 	//Modificar gravedad
 	V_Gravedad = 2;
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		if (a == 2) {
 			world->setGravity(GRAVITY3);
@@ -150,7 +150,7 @@ update_status ModulePhysics3D::Update(float dt)
 		}
 
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
 		if (a == 2) {
 			world->setGravity(GRAVITY1);
@@ -159,6 +159,25 @@ update_status ModulePhysics3D::Update(float dt)
 		if (a == 3) {
 			world->setGravity(GRAVITY2);
 			V_Gravedad = 2;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		if (active == true) {
+			world->setGravity(GRAVITY0);
+			active = false;
+		}
+		if (active == false) {
+			if (a == 1) {
+				world->setGravity(GRAVITY1);
+			}
+			if (a == 2) {	
+				world->setGravity(GRAVITY2);
+			}
+			if (a == 3) {
+				world->setGravity(GRAVITY3);
+
+			}
 		}
 	}
 
