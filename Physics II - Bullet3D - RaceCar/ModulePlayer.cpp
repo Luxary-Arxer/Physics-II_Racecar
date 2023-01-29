@@ -174,7 +174,7 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (vidas == 1) {
 			vehicle_car->info.life3->active = false;
@@ -191,7 +191,7 @@ update_status ModulePlayer::Update(float dt)
 
 
 	}
-	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		vehicle_car->info.life1->active = true;
 		vehicle_car->info.life2->active = true;
