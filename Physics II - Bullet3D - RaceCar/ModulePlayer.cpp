@@ -24,7 +24,7 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2.5, 1.5, 4);
+	car.chassis_size.Set(2.5, 1.3, 4);
 	car.chassis_offset.Set(0, 1, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
@@ -40,6 +40,13 @@ bool ModulePlayer::Start()
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
 
+	// Life properties ---------------------------------------
+	float life_connection_height = 1.2f;
+	float life_x = 0.6f;
+	float life_y = 0.5f;
+	float life_z = 0.5f;
+	float life_suspensionRestLength = 1.2f;
+
 	// Don't change anything below this line ------------------
 
 	float half_width = car.chassis_size.x*0.5f;
@@ -51,8 +58,13 @@ bool ModulePlayer::Start()
 	car.num_wheels = 4;
 	car.wheels = new Wheel[4];
 
+	car.num_lifes = 3;
+	car.lifes = new Lifes[3];
+
+
+
 	// FRONT-LEFT ------------------------
-	car.wheels[0].connection.Set(half_width - 0.3f * wheel_width, connection_height, half_length - wheel_radius);
+	car.wheels[0].connection.Set(half_width + 0.1f * wheel_width, connection_height, half_length - wheel_radius);
 	car.wheels[0].direction = direction;
 	car.wheels[0].axis = axis;
 	car.wheels[0].suspensionRestLength = suspensionRestLength;
@@ -64,7 +76,7 @@ bool ModulePlayer::Start()
 	car.wheels[0].steering = true;
 
 	// FRONT-RIGHT ------------------------
-	car.wheels[1].connection.Set(-half_width + 0.3f * wheel_width, connection_height, half_length - wheel_radius);
+	car.wheels[1].connection.Set(-half_width - 0.1f * wheel_width, connection_height, half_length - wheel_radius);
 	car.wheels[1].direction = direction;
 	car.wheels[1].axis = axis;
 	car.wheels[1].suspensionRestLength = suspensionRestLength;

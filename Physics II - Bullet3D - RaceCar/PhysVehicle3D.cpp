@@ -50,6 +50,25 @@ void PhysVehicle3D::Render()
 
 
 	chassis.Render();
+
+	//Vidas
+
+	Cube life(info.lifes->size_life.x, info.lifes->size_life.y, info.lifes->size_life.z);
+
+	for (int i = 0; i < info.num_lifes; ++i)
+	{
+		//Color lives
+		if (info.lifes->active == true) {
+			life.color = Green;
+		}
+		else {
+			life.color = Red;
+		}
+
+		life.size = info.lifes[0].size_life;
+
+		life.Render();
+	}
 }
 
 // ----------------------------------------------------------------------------

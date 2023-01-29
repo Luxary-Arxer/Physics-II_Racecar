@@ -20,12 +20,22 @@ struct Wheel
 	bool steering; // does this wheel turns ?
 };
 
+struct Lifes
+{
+
+	bool active; // si tienes esa vida
+	vec3 size_life;
+	vec3 size_offset;
+
+};
+
 struct VehicleInfo
 {
 	~VehicleInfo();
 	
 	vec3 chassis_size;
 	vec3 chassis_offset;
+
 	float mass;
 	float suspensionStiffness; // default to 5.88 / 10.0 offroad / 50.0 sports car / 200.0 F1 car
 	float suspensionCompression; // default to 0.83
@@ -36,6 +46,9 @@ struct VehicleInfo
 
 	Wheel* wheels;
 	int num_wheels;
+
+	Lifes* lifes;
+	int num_lifes;
 };
 
 
