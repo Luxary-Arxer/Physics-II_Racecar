@@ -2,6 +2,8 @@
 
 ## Description
 
+El objetivo es llegar al final del nivel
+
 ## Controls
 ### DEBUG Keys
 

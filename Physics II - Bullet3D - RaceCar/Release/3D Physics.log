@@ -1,0 +1,9 @@
+﻿  ModulePhysics3D.cpp
+C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\Primitive.h(7,17): warning C4099: 'PhysBody3D': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
+C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\PhysBody3D.h(10,8): message : vea la declaración de 'PhysBody3D'
+  Generando código
+  0 of 439 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  3D Physics.vcxproj -> C:\Users\Luxary\Downloads\Github Projects\Physics-II_Racecar\Physics II - Bullet3D - RaceCar\Release\3D Physics - class5.exe

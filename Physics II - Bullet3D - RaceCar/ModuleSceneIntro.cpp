@@ -29,8 +29,8 @@ bool ModuleSceneIntro::Start()
 	//Victoria
 	CreateCube(5,5,5, 0, 10 + 1.5 +2,150, 0, 0, 0, 0, 0, 0, 1, 1);
 	//Rampa
-	CreateCube(20, 20, 0.5, 0, 60, 40, 0, 0, 0, 0, 0, 0.1, 0.1, 0);
-	CreateCube(0.5, 20, 0.5, 0, 60, 40, 0, 0, 0, 0, 0, 0.1, 0.1, 0);
+	CreateCube(10, 10, 0.5, 0, 20, 40, 0, 0, 0, 0, 0, 0.1, 0.1,0);
+	CreateCube(10, 0.5, 0.5, 0, 25, 40, 0, 0, 0, 0, 0, 0.1, 0.1, 0);
 
 
 	return ret;
@@ -76,10 +76,10 @@ update_status ModuleSceneIntro::Update(float dt)
 				PhysBody3D* cuboCreado = App->physics->AddBody(*cubes.At(i), 0);
 				cubes.At(i)->physObject = cuboCreado;
 			}
-			//constraint
-			//App->physics->AddConstraintHinge(*cubes.At(4)->physObject, *cubes.At(5)->physObject, vec3(10, 0, 0), vec3(0, 0, 0), vec3(0, 1, 0), vec3(0, 1, 0), false);
-		}
 
+		}
+		//constraint
+		App->physics->AddConstraintHinge(*cubes.At(3)->physObject, *cubes.At(4)->physObject, vec3(0, 6, 0), vec3(0, 0, 0), vec3(1, 0, 0), vec3(1, 0, 0), false);
 		mapa_Generado = true;
 	}
 	for (size_t i = 0; i < cubes.Count(); i++)
@@ -101,6 +101,7 @@ void ModuleSceneIntro::CreateCube(float size_x, float size_y, float size_z, floa
 	box.color.g = g;
 	box.color.b = b;
 	box.color.a = a;
+
 	box.SetPos(pos_x, pos_y, pos_z);
 
 	if (angle != 0)
