@@ -5,9 +5,13 @@
 ## Controls
 ### DEBUG Keys
 
- - F1 -> Quitar vida
- - F2 -> Reponer todas las vidas
- - F5 -> Retetar la posicion del player
+ - F2 -> Quitar vida
+ - F3 -> Reponer todas las vidas
+ - F5 -> Resetea la posicion del player
+ - F9 -> Añade +100 a la massa del vehículo
+ - F10 -> Resta -100 a la massa del vehículo
+ - F11 -> Augmenta el valor de gravedad
+ - F12 -> Reduce el valor de gravedad
 
 
 ### Movement

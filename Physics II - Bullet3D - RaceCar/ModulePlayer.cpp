@@ -177,8 +177,8 @@ update_status ModulePlayer::Update(float dt)
 	{
 		brake = BRAKE_POWER;
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	//Sacar vidas
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		if (vidas == 1) {
 			vehicle_car->info.life3->active = false;
@@ -195,15 +195,15 @@ update_status ModulePlayer::Update(float dt)
 
 
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	//Resetear vidas
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		vehicle_car->info.life1->active = true;
 		vehicle_car->info.life2->active = true;
 		vehicle_car->info.life3->active = true;
 		vidas = 3;
 	}
-
-
+	//Resetea posicion
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		turn = acceleration = brake = 0.0f;
@@ -219,6 +219,15 @@ update_status ModulePlayer::Update(float dt)
 		turn = acceleration = brake = 0.0f;
 		vehicle_car->vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 		vehicle_car->vehicle->getRigidBody()->setAngularVelocity(btVector3(0, 0, 0));
+	}
+	//Modificar massa veiculo
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		vehicle_car->info.mass += 100.0f;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		vehicle_car->info.mass += 100.0f;
 	}
 
 	vehicle_car->ApplyEngineForce(acceleration);
